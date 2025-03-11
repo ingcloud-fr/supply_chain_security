@@ -1,31 +1,36 @@
-name: Generate SBOM Report with Syft
+name: Generate SBOM Report with Syft  # Nom du workflow
 
 on:
-  push:
+  push:  # Le workflow se déclenche sur un push
     branches:
-      - master
-  pull_request:
+      - master  # Sur la branche master
+  pull_request:  # Le workflow se déclenche aussi lors d'une pull request
     branches:
-      - master
+      - master  # Sur la branche master
 
 jobs:
-  generate-sbom:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+  generate-sbom:  # Nom du job
+    runs-on: ubuntu-latest  # Exécution sur la dernière version d'Ubuntu
 
-    - name: Install Syft
+    steps:  # Étapes du job
+    - name: Checkout Repository  # Étape pour récupérer le code source
+      uses: actions/checkout@v3  # Utilisation de l'action officielle GitHub pour cloner le dépôt
+
+    - name: Install Syft  # Étape pour installer Syft, l'outil de génération de SBOM
+      # Télécharge et installe Syft depuis le dépôt officiel GitHub d'Anchore
       run: |
         curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+        
 
-    - name: Generate SBOM
+    - name: Generate SBOM  # Étape pour générer le SBOM
+      # Utilisation de Syft pour scanner l'image Docker
+      # Génère un SBOM au format SDPX JSON et le sauvegarde dans 'spdx.json'
       run: |
-        syft docker.io/library/nginx:latest -o cyclonedx-xml > sbom.xml
+        syft docker.io/kodekloud/webapp-color:latest -o spdx-json > spdx.json  
 
-    - name: Upload SBOM Artifact
-      uses: actions/upload-artifact@v3
+
+    - name: Upload SBOM Artifact  # Étape pour télécharger le fichier SBOM généré
+      uses: actions/upload-artifact@v3  # Utilisation de l'action GitHub pour télécharger des artefacts
       with:
-        name: sbom-report
-        path: sbom.xml
+        name: sbom-report  # Nom de l'artefact téléchargé
+        path: sbom.xml  # Chemin du fichier SBOM à télécharger

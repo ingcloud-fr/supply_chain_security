@@ -15,7 +15,7 @@ jobs:
 
     steps:  # Étapes du job
     - name: Checkout Repository  # Étape pour récupérer le code source
-      uses: actions/checkout@v3  # Utilisation de l'action officielle GitHub pour cloner le dépôt
+      uses: actions/checkout@v4  # Utilisation de l'action officielle GitHub pour cloner le dépôt
 
     - name: Install Syft  # Étape pour installer Syft, l'outil de génération de SBOM
       # Télécharge et installe Syft depuis le dépôt officiel GitHub d'Anchore

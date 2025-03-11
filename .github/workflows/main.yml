@@ -1,6 +1,7 @@
 name: Generate SBOM Report with Syft  # Nom du workflow
 
 on:
+  workflow_dispatch:     # AJOUTE
   push:  # Le workflow se déclenche sur un push
     branches:
       - master  # Sur la branche master
@@ -33,4 +34,4 @@ jobs:
       uses: actions/upload-artifact@v3  # Utilisation de l'action GitHub pour télécharger des artefacts
       with:
         name: sbom-report  # Nom de l'artefact téléchargé
-        path: sbom.xml  # Chemin du fichier SBOM à télécharger
+        path: spdx.json  # Chemin du fichier SBOM à télécharger MODIFIE

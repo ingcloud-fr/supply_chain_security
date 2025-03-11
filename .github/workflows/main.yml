@@ -33,5 +33,5 @@ jobs:
     - name: Upload SBOM Artifact  # Étape pour télécharger le fichier SBOM généré
       uses: actions/upload-artifact@v4  # Utilisation de l'action GitHub pour télécharger des artefacts
       with:
-        name: sbom-report  # Nom de l'artefact téléchargé
+        name: spdx-report  # Nom de l'artefact téléchargé
         path: spdx.json  # Chemin du fichier SBOM à télécharger MODIFIE
